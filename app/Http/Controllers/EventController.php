@@ -49,36 +49,36 @@ class EventController extends Controller
 
         return redirect('/cadastrarmedico');
     }
-
+    
     public function editMedico($id)
     {
-
+        
         $edit = Table_medicos::findOrFail($id);
-
+        
         return view('updatemedico', ['edit' => $edit]);
     }
 
     public function updateMedico(Request $request)
     {
-
+        
         Table_medicos::where('id', $request->id)->update($request->except(['_token', '_method']));
-
+        
         return redirect('/cadastrarmedico');
     }
-
-
+    
+    
     //functions pacientes
     public function getCadastrarPaciente()
     {
-
+        
         $dados = Table_pacientes::all();
         return view('cadastrarpaciente', ['dados' => $dados]);
     }
-
+    
     public function createPaciente(Request $request)
     {
         $dadospaciente = new Table_pacientes;
-
+        
         $dadospaciente->paciente = $request->paciente;
         $dadospaciente->nascimento = $request->nascimento;
         $dadospaciente->cpf = $request->cpf;
@@ -87,64 +87,72 @@ class EventController extends Controller
         $dadospaciente->cep = $request->cep;
         $dadospaciente->rua = $request->rua;
         $dadospaciente->numero = $request->numero;
-
+        
         $dadospaciente->save();
-
+        
         return redirect('/cadastrarpaciente');
     }
-
+    
     public function deletePaciente($id)
     {
-
+        
         Table_pacientes::findOrFail($id)->delete();
 
         return redirect('/cadastrarpaciente');
     }
-
+    
     public function editPaciente($id)
     {
-
+        
         $edit = Table_pacientes::findOrFail($id);
-
+        
         return view('updatepaciente', ['edit' => $edit]);
     }
-
+    
     public function updatePaciente(Request $request)
     {
 
         Table_pacientes::where('id', $request->id)->update($request->except(['_token', '_method']));
-
+        
         return redirect('/cadastrarpaciente');
     }
-
-
+    
+    
     // functions especialidade
     public function getCadastrarEspecialidade(){
-
+        
         $dados = Table_especialidades::all();
         return view('cadastrarespecialidade', ['dados' => $dados]);
-
+        
     }
-
+    
     public function createEspecialidade(Request $request)
     {
         $dadosespecialidade = new Table_especialidades;
         $dadosespecialidade->especialidade = $request->especialidade;
         $dadosespecialidade->save();
-
+        
         return redirect('/cadastrarespecialidade');
     }
 
-
+    public function deleteEspecialidade($id)
+    {
+    
+        Table_especialidades::findOrFail($id)->delete();
+    
+        return redirect('/cadastrarespecialidade');
+    }
+    
+    
     //function Consulta
     public function getCadastrarConsulta()
     {
-
+        
         $dadospaciente = Table_pacientes::all();
-
+        
         return view('marcarconsulta', ['dadospaciente' => $dadospaciente]);
     }
-
+    
     public function getConsultaPaciente()
     {
 
@@ -156,10 +164,10 @@ class EventController extends Controller
         $data = strtotime($data);
         $datadenascimento = date('d/m/Y', $data);
         $anos = $this->calcData($datadenascimento);
-
+        
         
         if ($anos < 12) {
-
+            
             $resultado = Table_medicos::where('especialidade', '=', 'pediatria')->get();
             $resultado->responsavel = true;
             $resultado->paciente = $nomepaciente;
@@ -177,28 +185,36 @@ class EventController extends Controller
             $resultado->paciente = $nomepaciente;
 
         }
-
-
+        
+        
         return view('consultamedico', ['resultado' => $resultado]);
     }
     
     public function createConsulta(Request $request)
     {
-
+        
         $dadosconsulta = new Table_consultas;
-
+        
         $dadosconsulta->paciente = $request->paciente;
         $dadosconsulta->medico = $request->medico;
         $dadosconsulta->dia = $request->dia;
         $dadosconsulta->responsavel = $request->responsavel;
         $dadosconsulta->cpfresponsavel = $request->cpfresponsavel;
-
+        
         $dadosconsulta->save();
-
+        
         return redirect('/marcarconsulta');
         
     }
-
+    
+    public function deleteConsulta($id)
+    {
+    
+        Table_consultas::findOrFail($id)->delete();
+    
+        return redirect('/');
+    }
+    
     public function calcData($datadenascimento)
     {
 
@@ -207,18 +223,18 @@ class EventController extends Controller
         $data = explode('/', $data); 
         $anos = $data[2] - $nascimento[2];
         if ($nascimento[1] > $data[1]) return $anos - 1; 
-
+        
         if ($nascimento[1] == $data[1]){ 
-
+            
             if ($nascimento[0] <= $data[0]) {
                 return $anos;
             } else {
                 return $anos - 1;
             }
-
+            
         }
 
         return $anos;
     }
-
+    
 }

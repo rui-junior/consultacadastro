@@ -25,7 +25,7 @@
                         <select class="form-control" name="medico">
 
                                 @foreach($resultado as $dado)
-                                <option value="{{ $dado->medico }}">
+                                <option value="{{ $dado->medico }} ({{ $dado->especialidade}})">
                                         {{ $dado->medico }} ({{ $dado->especialidade}})
                                 </option>
                                 @endforeach
@@ -39,7 +39,7 @@
 
                 <div class="mb-3">
                         <label class="form-label">Data:</label>
-                        <input type="date" name='dia' class="form-control" required>
+                        <input type="date" pattern="\d{4}-\d{2}-\d{2}" name='dia' class="form-control" required>
                         <div class="valid-feedback">Válido</div>
                         <div class="invalid-feedback">Item Obrigatório</div>
                 </div>
@@ -65,8 +65,8 @@
 
                 @else
 
-                <input type="hidden" name="responsavel" value="nulo">
-                <input type="hidden" name="cpfresponsavel" value="nulo">
+                <input type="hidden" name="responsavel" value="0">
+                <input type="hidden" name="cpfresponsavel" value="0">
 
                 @endif
 

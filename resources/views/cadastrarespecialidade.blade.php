@@ -43,7 +43,7 @@
 
             <div>
 
-                <form action="/cadastrarmedico/{{ $dado->id }}" method="POST">
+                <form action="/cadastrarespecialidade/{{ $dado->id }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-info edit-btn btn-danger">Excluir</button>
@@ -51,13 +51,6 @@
 
             </div>
 
-            <div>
-
-                <a href="/cadastrarmedico/edit/{{ $dado->id }}">
-                    <button type="submit" class="btn btn-info edit-btn btn-warning">Editar</button>
-                </a>
-
-            </div>
 
 
 

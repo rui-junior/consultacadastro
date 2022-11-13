@@ -19,10 +19,12 @@ Route::put('/cadastrarpaciente/update/{id}', [EventController::class, 'updatePac
 
 Route::get('/cadastrarespecialidade', [EventController::class, 'getCadastrarEspecialidade']);
 Route::post('/cadastrarespecialidade', [EventController::class, 'createEspecialidade']);
+Route::delete('/cadastrarespecialidade/{id}', [EventController::class, 'deleteEspecialidade']);
 
 Route::get('/marcarconsulta', [EventController::class, 'getCadastrarConsulta']);
 Route::get('/marcarconsultapaciente', [EventController::class, 'getConsultaPaciente']);
 Route::post('/marcarconsulta', [EventController::class, 'createConsulta']);
+Route::delete('/cadastrarconsulta/{id}', [EventController::class, 'deleteConsulta']);
 
 
 

@@ -3,42 +3,50 @@
 @section('title', 'titulo da pagina')
 @section('content')
 
-<div class="d-flex flex-column align-items-center col-10 m-3 p-3 border border-dark rounded-sm">
 
-    <span class="h1">Sistema de Cadastro de Consultas Médicas</span>
-    <p class="lead">Consultas cadastradas:</p>
+<div class="d-flex flex-column justify-content-center align-items-center col-8 p-3 border border-dark rounded-sm">
 
-    <div class="col-6 d-flex justify-content-center flex-column">
+    <div class="d-flex flex-column align-items-center col-8">
 
-        @if (count($dados) != 0)
+        <div class="h3">Sistema de Cadastro de Consulta</div>
+        <div class="text=mutted">Consultas Cadastradas:</div>
 
-            <div class="d-flex flex-row justify-content-around h4">
+        <div class="d-flex flex-column align-items-center flex-nowrap col-12">
 
-                <p>Paciente</p>
-                <p>Medico(Especialidade)</p>
-                <p>Data</p>
+            @if (count($dados) != 0)
 
-            </div>
+                @foreach($dados as $dado)
+                <div class="d-flex flex-row justify-content-between border-dark border-bottom my-2">
+
+                    <div class="mr-auto px-3">Paciente: {{ $dado->paciente }}</div>
+                    <div class="mr-auto px-3">Médico: {{ $dado->medico }}</div>
+                    <div class="mr-auto px-3">Dia: {{ $dado->dia }}</div>
+
+                    <div>
+
+                        <form action="/cadastrarconsulta/{{ $dado->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-info edit-btn btn-danger">Excluir</button>
+                        </form>
+
+                    </div>
+
+                </div>
+                @endforeach
+
+            @else
+
+                <div>Não há consultas cadastradas.</div>
+
+            @endif
 
 
-            @foreach($dados as $dado)
-            <div class="d-flex flex-row justify-content-around">
-
-                <p>{{ $dado->paciente }}</p>
-                <p>{{ $dado->medico }} ({{ $dado->especialidade }})</p>
-                <p>{{ $dado->dia }}</p>
-
-            </div>
-            @endforeach
-
-        @else
-
-            <div class="d-flex flex-row justify-content-around h4 pb-5"> Não há nenhuma consulta cadastrada</div>
-
-        @endif
+        </div>
 
     </div>
 
 </div>
+
 
 @endsection
