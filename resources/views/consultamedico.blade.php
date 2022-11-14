@@ -1,6 +1,6 @@
 @extends('components.main')
 
-@section('title', 'titulo da pagina')
+@section('title', '')
 @section('content')
 
 

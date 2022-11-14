@@ -1,6 +1,6 @@
 @extends('components.main')
 
-@section('title', 'titulo da pagina')
+@section('title', '')
 @section('content')
 
 <div class="d-flex flex-row flex-wrap col-8">
