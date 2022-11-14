@@ -23,10 +23,10 @@ class EventController extends Controller
     public function getCadastrarMedico()
     {
 
-        $dados = Table_medicos::all();
-        $dadosespecialidade = Table_especialidades::all();
-        $dados->especialidades = $dadosespecialidade;
-        return view('cadastrarmedico', ['dados' => $dados]);
+        $dadosmedicos = Table_medicos::all();
+        $dadosespecialidades = Table_especialidades::all();
+
+        return view('cadastrarmedico', ['dadosmedicos' => $dadosmedicos, 'dadosespecialidades' => $dadosespecialidades]);
     }
 
     public function createMedico(Request $request)

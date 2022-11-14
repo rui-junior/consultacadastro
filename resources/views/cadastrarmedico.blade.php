@@ -21,18 +21,35 @@
             <div class="mb-3">
                 <label class="form-label">Especialidade:</label>
 
-                <select class="form-control" name="especialidade">
+                @if(count($dadosespecialidades) != 0)
 
-                    @foreach($dados->especialidades as $dado)
-                    <option value="{{ $dado->especialidade }}">
-                        {{ $dado->especialidade }}
-                    </option>
-                    @endforeach
+                    @php $button = ""; @endphp
 
-                </select>
+                    <select class="form-control" name="especialidade">
 
-                <div class="valid-feedback">Válido</div>
-                <div class="invalid-feedback">Item Obrigatório</div>
+                        @foreach($dadosespecialidades as $dado)
+                        <option value="{{ $dado->especialidade }}">
+                            {{ $dado->especialidade }}
+                        </option>
+                        @endforeach
+
+                    </select>
+
+                    <div class="valid-feedback">Válido</div>
+                    <div class="invalid-feedback">Item Obrigatório</div>
+
+                @else
+
+                    @php $button = "disabled"; @endphp
+
+                    <div class="alert alert-danger" role="alert">
+                        Não há especialidades cadastradas.
+                    </div>
+
+                @endif
+
+
+
             </div>
 
             <div class="mb-3">
@@ -42,7 +59,7 @@
                 <div class="invalid-feedback">Item Obrigatório</div>
             </div>
 
-            <button type="submit" class="btn btn-primary mh-10">Cadastrar</button>
+            <button type="submit" class="btn btn-primary mh-10" {{$button}} >Cadastrar</button>
 
         </form>
 
@@ -50,7 +67,7 @@
 
     <div class="d-flex flex-row justify-content-center flex-wrap col-12 p-3 border border-dark rounded-sm">
 
-        @if (count($dados) != 0)
+        @if (count($dadosmedicos) != 0)
 
         <div class="d-flex flex-row justify-content-around h5 col-8">
 
@@ -59,7 +76,7 @@
         </div>
 
 
-        @foreach($dados as $dado)
+        @foreach($dadosmedicos as $dado)
         <div class="d-flex flex-row justify-content-around border-dark border-bottom col-8 pt-3">
 
             <div class="mr-auto">
@@ -97,6 +114,9 @@
         @endif
 
     </div>
+
+
+
 
 </div>
 
